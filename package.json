@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "pretest": "npx ts-node src/helper/report/report.ts",
-    "test": "npx cross-env ENV=test FORCE_COLOR=0 cucumber-js --tags @fail --exit",
+    "test": "npx cross-env ENV=test FORCE_COLOR=0 cucumber-js --tags @Regression --exit",
     "posttest": "npx ts-node src/helper/report/report.ts",
     "failed-test": "npx cross-env ENV=test FORCE_COLOR=0 cucumber-js -p rerun @rerun.txt"
   },
