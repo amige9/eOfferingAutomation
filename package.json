@@ -1,0 +1,30 @@
+{
+  "name": "e-offering",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "pretest": "npx ts-node src/helper/report/report.ts",
+    "test": "npx cross-env ENV=test FORCE_COLOR=0 cucumber-js --tags @fail --exit",
+    "posttest": "npx ts-node src/helper/report/report.ts",
+    "failed-test": "npx cross-env ENV=test FORCE_COLOR=0 cucumber-js -p rerun @rerun.txt"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@cucumber/cucumber": "^11.2.0",
+    "@cucumber/cucumber-expressions": "^18.0.1",
+    "@playwright/test": "^1.50.1",
+    "@types/node": "^22.13.5",
+    "cross-env": "^7.0.3",
+    "cucumber-html-reporter": "^7.2.0",
+    "dotenv": "^16.4.7",
+    "fs-extra": "^11.3.0",
+    "multiple-cucumber-html-reporter": "^3.9.2",
+    "playwright": "^1.50.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3",
+    "winston": "^3.17.0"
+  }
+}

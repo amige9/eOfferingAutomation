@@ -1,0 +1,15 @@
+{
+  "cookies": [
+    {
+      "name": "PHPSESSID",
+      "value": "vng7id1tbhp0agucnf5o514fm8",
+      "domain": "adgtest.fmdqgroup.com",
+      "path": "/",
+      "expires": 1721284777.151238,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": []
+}
