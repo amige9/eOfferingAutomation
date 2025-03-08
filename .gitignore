@@ -8,6 +8,5 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 assets
-features
 @rerun.txt
 index.html
