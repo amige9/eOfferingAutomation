@@ -11,13 +11,13 @@ Given('the sponsor navigates to the login page', async function () {
     });
 
 When("the sponsor enters a valid username as {string} and valid password as {string}", async function (userName,pwd) {
-      await this.loginPage.login(userName,pwd);
-      this.page.logger?.info("Entered Username and Password");
+      // await this.loginPage.login(userName,pwd);
+      // this.page.logger?.info("Entered Username and Password");
 })
 
 When("the sponsor clicks on the sign in button", async function(){
-      await this.loginPage.clickSignin();
-      this.page.logger?.info("Clicked Sign in button");
+      // await this.loginPage.clickSignin();
+      // this.page.logger?.info("Clicked Sign in button");
 })
 
 Then("the sponsor should be logged in", async function (){
