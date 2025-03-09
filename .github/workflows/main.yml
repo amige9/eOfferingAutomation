@@ -55,7 +55,7 @@ jobs:
         echo "BROWSER=chrome" >> .env.test
         
     - name: Run Cucumber tests with specific feature file
-      run: npx cross-env ENV=test cucumber-js src/test/features/sponsorLogin.feature --tags @fail
+      run: npx cross-env ENV=test cucumber-js src/test/features/sponsorLogin.feature --tags="@fail"
       env:
         BASEURL: https://adgtest.fmdqgroup.com/eOffering/sponsor/
         BROWSER: chrome
