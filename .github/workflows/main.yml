@@ -7,17 +7,9 @@ on:
 jobs:
   test:
     timeout-minutes: 60
-    runs-on: self-hosted
+    runs-on: windows-latest
     steps:
     - uses: actions/checkout@v4
-
-    - name: Cache Playwright Browsers
-      uses: actions/cache@v4
-      with:
-        path: ~/.cache/ms-playwright
-        key: playwright-browsers-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-        restore-keys: |
-          playwright-browsers-${{ runner.os }}-
 
     - uses: actions/setup-node@v4
       with:
@@ -29,8 +21,17 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
 
+    - name: Set up environment file
+      run: |
+        echo "BASEURL=https://adgtest.fmdqgroup.com/eOffering/sponsor/" > .env.test
+        echo "BROWSER=chrome" >> .env.test
+
     - name: Run Playwright tests
       run: npx cross-env ENV=test cucumber-js --tags="@fail" --exit
+      env:
+        BASEURL: https://adgtest.fmdqgroup.com/eOffering/sponsor/
+        BROWSER: chrome
+        ENV: test
 
     - uses: actions/upload-artifact@v4
       if: always()
