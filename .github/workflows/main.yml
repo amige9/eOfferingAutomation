@@ -18,7 +18,7 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
     - name: Run Playwright tests
-      run: npx cross-env ENV=test cucumber-js --tags"@fail" --exit
+      run: npx cross-env ENV=test cucumber-js --tags="@fail" --exit
     - uses: actions/upload-artifact@v4
       if: always()
       with:
