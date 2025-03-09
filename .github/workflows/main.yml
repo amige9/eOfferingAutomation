@@ -1,3 +1,31 @@
+# name: eOffering Playwright Tests
+# on:
+#   push:
+#     branches: [ main, master ]
+#   pull_request:
+#     branches: [ main, master ]
+# jobs:
+#   test:
+#     timeout-minutes: 60
+#     runs-on: windows-latest
+#     steps:
+#     - uses: actions/checkout@v4
+#     - uses: actions/setup-node@v4
+#       with:
+#         node-version: lts/*
+#     - name: Install dependencies
+#       run: npm ci
+#     - name: Install Playwright Browsers
+#       run: npx playwright install --with-deps
+#     - name: Run Playwright tests
+#       run: npx cross-env ENV=test cucumber-js --tags @fail --format summary --exit
+#     - uses: actions/upload-artifact@v4
+#       if: always()
+#       with:
+#         name: playwright-report
+#         path: playwright-report/
+#         retention-days: 30
+
 name: eOffering Playwright Tests
 on:
   push:
@@ -13,12 +41,50 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: lts/*
+        cache: 'npm' # This enables npm caching to speed up installations
+        
     - name: Install dependencies
       run: npm ci
+      
+    # Only install browsers if they're not already cached
+    - name: Check for browsers
+      id: check-browsers
+      run: |
+        if (Test-Path $env:USERPROFILE\.cache\ms-playwright) {
+          echo "Playwright browsers already installed"
+          echo "::set-output name=cache-hit::true"
+        } else {
+          echo "Playwright browsers not found"
+          echo "::set-output name=cache-hit::false"
+        }
+      shell: pwsh
+      
     - name: Install Playwright Browsers
+      if: steps.check-browsers.outputs['cache-hit'] != 'true'
       run: npx playwright install --with-deps
-    - name: Run Playwright tests
-      run: npx cross-env ENV=test cucumber-js --tags @fail --format summary --exit
+      
+    - name: Display environment info
+      run: |
+        echo "Node version: $(node -v)"
+        echo "NPM version: $(npm -v)"
+        echo "Current directory: $(Get-Location)"
+        echo "Directory contents:"
+        Get-ChildItem -Force
+      shell: pwsh
+      
+    - name: Run diagnostic script
+      run: node debug-cucumber.js
+      env:
+        BASEURL: https://adgtest.fmdqgroup.com/eOffering/sponsor/
+        BROWSER: chrome
+        ENV: test
+        
+    - name: Run Cucumber tests
+      run: npx cross-env ENV=test cucumber-js --tags @fail
+      env:
+        BASEURL: https://adgtest.fmdqgroup.com/eOffering/sponsor/
+        BROWSER: chrome
+        
     - uses: actions/upload-artifact@v4
       if: always()
       with:

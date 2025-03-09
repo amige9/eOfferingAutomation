@@ -15,6 +15,7 @@
             "ts-node/register"
         ],
         "format": [
+            "progress",
             "json:test-results/HTMLReport/cucumber-report.json",
             "rerun:@rerun.txt"
         ],
@@ -33,6 +34,7 @@
             "ts-node/register"
         ],
         "format": [
+            "progress",
             "json:test-results/HTMLReport/cucumber-report.json",
             "rerun:@rerun.txt"
         ]
